@@ -20,7 +20,7 @@ var fight = function( enemyName ) {
         var promptFight = window.prompt("Would you like to FIGHT or SKIP this battle? Enter 'FIGHT' or 'SKIP' to choose")
 
         // if player picks "skip" confirm and then stop the loop
-        if ( promptFight === "skip" | promptFight === "SKIP" ) {
+        if ( promptFight === "skip" || promptFight === "SKIP" ) {
             // confirm player wants to skip
             var confirmSkip = window.confirm("Are you sure you'd like to quit?")
 
