@@ -4,8 +4,8 @@
 //  * Defeat each enemy-robot
 // "LOSE" - Player robot's health is zero or less
 var playerName = window.prompt("What is your robot's name?");
-var playerHealth = 100;
-var playerAttack = 10;
+var playerHealth = 1000;
+var playerAttack = 50;
 var playerMoney = 10;
 
 var enemyNames = ["Roborto", "Amy Android", "Robo Trumble"];
@@ -37,8 +37,7 @@ var fight = function( enemyName ) {
                 fight();
             }
             window.alert(playerName + " has chosen to skip the fight!");
-        }
-
+        } 
 
         // subtract the value of 'playerAttack' from the value of 'enemyHealth' and use that result to update the value in the 'enemyHealth' variable
         enemyHealth =  enemyHealth - playerAttack;
@@ -73,25 +72,61 @@ var fight = function( enemyName ) {
         }    
     }
 };
-// Loop for each enemyNames
-for (var i = 0; i < enemyNames.length; i++) {
+
+// function to end the entire game
+var endGame = function() {
     if (playerHealth > 0) {
-        window.alert("Welcome to Robot Gladiators! Round " + ( i + 1 ) );
+        window.alert("Great job, yo've survived the game! You now have a score of " + playerMoney + ".");
+    } else {
+        window.alert("You have lost your robot in battle.");
+    }
 
-        //pick new enemy to fight based on the index of the enemyNames array
-        var pickedEnemeyName = enemyNames[i];
+    var playAgainConfirm = window.confirm("Would you like to play again?");
 
-        // reset enemy health
-        enemyHealth = 50;
-
-        // use debugger to pause script from running and check what's going on at that moment in the code
-        // debugger;
-        
-        // call fight function with enemy-robot
-        fight( pickedEnemeyName );
-      } else {
-          window.alert("You have lost your robot in battle! Game Over!")
-          break
-      }
+    if (playAgainConfirm) {
+        startGame();
+    } else {
+        window.alert("Thank you for playing Robot Gladiators! Come back soon!");
+    }
 }
+
+
+// function to start a new game
+var startGame = function() {
+    // reset player stats
+    playerHealth = 1000;
+    playerAttack = 100;
+    playerMoney = 10;
+
+    for (var i = 0; i < enemyNames.length; i++) {
+      if (playerHealth > 0) {
+        window.alert("Welcome to Robot Gladiators! Round " + (i + 1));
+  
+        var pickedEnemyName = enemyNames[i];
+  
+        enemyHealth = 50;
+  
+        fight(pickedEnemyName);
+      }
+      else {
+        window.alert("You have lost your robot in battle! Game Over!");
+        break;
+      }
+    }
+
+    endGame()
+};
+startGame()
+
+
+
+
+//at the end of the game, either win or lose, ask if the player wants to play again
+
+//if yes, refill initial stats
+
+
+//refill would consume money and fill the player health
+
+//upgrade would consume money and add the the player attack
 
