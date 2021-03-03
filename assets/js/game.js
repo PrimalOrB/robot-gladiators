@@ -65,6 +65,8 @@ var fight = function( enemy ) {
                 // check enemy's health
                 if (enemy.health<= 0) {
                     window.alert(enemy.name + " has died!");
+                    // award player money for winning
+                    playerInfo.money = playerInfo.money + 20;
                     break
                 } else {
                     window.alert(enemy.name + " still has " + enemy.health+ " health left.");
@@ -94,11 +96,31 @@ var fight = function( enemy ) {
 
 // function to end the entire game
 var endGame = function() {
-    if (playerInfo.health > 0) {
-        window.alert("Great job, yo've survived the game! You now have a score of " + playerInfo.money + ".");
-    } else {
-        window.alert("You have lost your robot in battle.");
+    var highScore = function() {
+        if( localStorage.getItem('highScore') ){
+            var highScore = localStorage.getItem('highScore')
+            var highScoreName = localStorage.getItem('name')
+            if( playerInfo.money < highScore ) {
+                window.alert("You did not beat the high score of " + highScore + " set by " + highScoreName)
+            } else {
+                localStorage.setItem('highScore',   playerInfo.money)
+                localStorage.setItem('name',    playerInfo.name) 
+                window.alert("Contratulations" + playerInfo.name + ", you set a new high score of " + playerInfo.money)
+            }
+        } else {
+            localStorage.setItem('highScore',   playerInfo.money)
+            localStorage.setItem('name',    playerInfo.name) 
+        }
     }
+    highScore()
+
+
+
+    // if (playerInfo.health > 0) {
+    //     window.alert("Great job, yo've survived the game! You now have a score of " + playerInfo.money + ".");
+    // } else {
+    //     window.alert("You have lost your robot in battle.");
+    // }
 
     var playAgainConfirm = window.confirm("Would you like to play again?");
 
